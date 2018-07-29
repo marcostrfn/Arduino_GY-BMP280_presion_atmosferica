@@ -1,0 +1,37 @@
+http://www.playbyte.es/electronica/arduino/sensor-presion-atmosferica-gy-bmp280/
+
+Sensor presión atmosférica GY-BMP280
+
+por JMorales · Publicada 3 marzo, 2017 · Actualizado 28 junio, 2017
+
+Este nuevo sensor de precisión de Bosch de bajo costo BMP280, permite medir la presión barométrica absoluta, y la temperatura. Es el sucesor del ampliamente usado BMP180, mejorando sus prestaciones. Su bajo consumo y reducido tamaño hace que este módulo sea ideal para usarlo en aplicaciones móviles como por ejemplo drones.
+
+Dado que la presión cambia con la altitud, y las mediciones de la presión son tan buenas, también se puede utilizar como un altímetro con una precisión de ± 1 metro.
+
+Además existe una versión del chip que también mide humedad, el BME280.
+
+Especificaciones generales:
+
+    Rango de presión: 300 ~ 1100 hPa
+    Rango de temperatura: -40 ~ 85ºC
+    Precisión absoluta de la presión del aire: ± 1 hPa
+    Precisión absoluta de la temperatura: ± 1.0ºC
+    Nivel Lógico: 3.3V
+    Consumo: 2.7μA
+    Interfaz de comunicación: I2C, SPI
+
+Información más detallada en este enlace y las especificaciones técnicas en este: Datasheet_BMP280
+
+Existen versiones de este módulo que soportan 5V, pero el nuestro en particular funciona a 3.3V, de modo que no debemos conectarlo directamente al bus del Arduino. Lo mejor es utilizar una adaptador de niveles y si no disponemos de él se pueden usar un par de resistencias pull-up de 4.7K para conectar directamente Arduino con un componente que usa el bus I2C a 3.3V según se describe en este enlace.
+
+El esquema para la conexión con el Arduino UNO mediante I2C sería así usando los pines A4(SDA) y A5 (SLC):
+
+Las conexiones son simples pero hay que tener en cuenta un pequeño detalle, la dirección del bus cambia según el estado lógico del pin SDO, y si se deja desconectado la dirección queda indeterminada, por lo que puede parecer que no funciona correctamente.
+
+SDO=GND -> I2C Address (0x76)
+SDO=3.3V -> I2C Address (0x77)
+
+En la librería desarrollada por Adafruit, el bus I2C utiliza por defecto la dirección (0x77), para modificarlo hay que editar el fichero “Adafruit_BMP280.h” y en la linea 37  #define BMP280_ADDRESS  (0x77) cambiamos la dirección (0x76).
+
+Solo queda comentar que es posible usar el módulo como altímetro pero es necesario calibrarlo con el valor de la presión atmosférica local
+
