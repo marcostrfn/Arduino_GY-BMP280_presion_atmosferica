@@ -6,4 +6,4 @@
 *.cpp linguist-language=Arduino
 
 *.h linguist-vendored=false
-*.h linguist-language=Arduin
+*.h linguist-language=Arduino
